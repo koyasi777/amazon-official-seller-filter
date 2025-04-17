@@ -6,7 +6,7 @@ Amazon.co.jp の検索結果に、**「Amazon公式セラー（p_6:AN1VRQENFRJN5
 怪しいマーケットプレイス商品を除外して、Amazon直販の信頼できる商品だけをサッと表示できます。
 
 <p>
-  <img src=".github/images/amazon_p6_toggle_image01.png" alt="Amazon検索フォームに表示されたトグルスイッチUI" width="600">
+  <img src=".github/images/amazon-official-seller-filter-toggle-image01.png" alt="Amazon検索フォームに表示されたトグルスイッチUI" width="600">
 </p>
 
 - セラー絞り込みURL（`p_6=AN1VRQENFRJN5`）のON/OFFをワンタッチで切替

@@ -44,7 +44,6 @@ Amazon.co.jp の検索結果に、**「Amazon公式セラー（p_6:AN1VRQENFRJN5
 
 ## 🔗 関連リンク
 
-- [Amazon公式セラーとは？（参考）](https://www.amazon.co.jp/)
 - [Violentmonkey公式サイト](https://violentmonkey.github.io/)
 - [Tampermonkey公式サイト](https://www.tampermonkey.net/)
 - [このスクリプトのGitHubリポジトリ](https://github.com/koyasi777/amazon-seller-filter-toggle)

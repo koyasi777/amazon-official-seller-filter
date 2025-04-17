@@ -22,7 +22,7 @@ Amazon.co.jp の検索結果に、**「Amazon公式セラー（p_6:AN1VRQENFRJN5
 ## ⚙️ インストール方法
 
 1. お使いのブラウザに Violentmonkey または Tampermonkey を導入
-2. **[このスクリプトをインストールする](https://raw.githubusercontent.com/koyasi777/amazon-seller-filter-toggle/main/amazon-p6-toggle.user.js)** ← クリックで直接インストール！
+2. **[このスクリプトをインストールする](https://raw.githubusercontent.com/koyasi777/amazon-seller-filter-toggle/main/amazon-official-seller-filter-toggle.user.js)** ← クリックで直接インストール！
 3. 自動でインストール画面が開きます。「インストール」を押せば完了！
 
 ## 💡 機能詳細

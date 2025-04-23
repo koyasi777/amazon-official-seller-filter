@@ -10,7 +10,7 @@
 // @name:de      Amazon Offizieller Verkäufer-Filter 🔄
 // @name:pt-BR   Alternador de Filtro do Vendedor Oficial da Amazon 🔄
 // @name:ru      Переключатель фильтра официального продавца Amazon 🔄
-// @version      14.2
+// @version      14.3
 // @description         Amazon検索結果に「Amazon公式セラー（p_6:AN1VRQENFRJN5）」の絞り込みトグルを追加！SPA対応・レイアウト崩れ対策・高速安定版。
 // @description:en      Adds a toggle in Amazon search results to filter for the official Amazon seller (p_6:AN1VRQENFRJN5). Supports SPA, layout fixes, and fast stable performance.
 // @description:zh-CN   在Amazon搜索结果中添加“官方卖家”筛选按钮（p_6:AN1VRQENFRJN5）。支持SPA、布局修复、快速稳定运行。
@@ -21,7 +21,7 @@
 // @description:de      Fügt in den Amazon-Suchergebnissen einen Filter für den offiziellen Verkäufer hinzu. Unterstützt SPA, schnelle und stabile Ausführung.
 // @description:pt-BR   Adiciona um botão para filtrar pelo vendedor oficial da Amazon nos resultados de busca. Suporte a SPA, layout estável e rápido.
 // @description:ru      Добавляет переключатель фильтра официального продавца Amazon в результатах поиска. Поддерживает SPA, исправления макета, быструю и стабильную работу.
-// @namespace    https://github.com/koyasi777/amazon-seller-filter-toggle
+// @namespace    https://github.com/koyasi777/amazon-official-seller-filter
 // @author       koyasi777
 // @match        https://www.amazon.co.jp/s*
 // @match        https://www.amazon.com/s*

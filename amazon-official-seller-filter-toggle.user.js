@@ -1,14 +1,44 @@
 // ==UserScript==
-// @name         Amazon公式セラー絞り込みトグル 🔄（p_6:AN1VRQENFRJN5対応）
+// @name         Amazon公式セラー絞り込みトグル 🔄
+// @name:ja      Amazon公式セラー絞り込みトグル 🔄
+// @name:en      Amazon Official Seller Filter Toggle 🔄
+// @name:zh-CN   Amazon官方卖家筛选切换器 🔄
+// @name:zh-TW   Amazon官方賣家篩選切換器 🔄
+// @name:ko      아마존 공식 셀러 필터 토글 🔄
+// @name:fr      Filtre Amazon Vendeur Officiel 🔄
+// @name:es      Filtro de Vendedor Oficial de Amazon 🔄
+// @name:de      Amazon Offizieller Verkäufer-Filter 🔄
+// @name:pt-BR   Alternador de Filtro do Vendedor Oficial da Amazon 🔄
+// @name:ru      Переключатель фильтра официального продавца Amazon 🔄
+// @version      14.2
+// @description         Amazon検索結果に「Amazon公式セラー（p_6:AN1VRQENFRJN5）」の絞り込みトグルを追加！SPA対応・レイアウト崩れ対策・高速安定版。
+// @description:en      Adds a toggle in Amazon search results to filter for the official Amazon seller (p_6:AN1VRQENFRJN5). Supports SPA, layout fixes, and fast stable performance.
+// @description:zh-CN   在Amazon搜索结果中添加“官方卖家”筛选按钮（p_6:AN1VRQENFRJN5）。支持SPA、布局修复、快速稳定运行。
+// @description:zh-TW   在Amazon搜尋結果中加入「官方賣家」篩選切換（p_6:AN1VRQENFRJN5）。支援SPA與版面修正，快速穩定。
+// @description:ko      아마존 검색 결과에 공식 셀러(p_6:AN1VRQENFRJN5) 필터 토글 추가. SPA 대응, 레이아웃 문제 해결, 빠르고 안정적입니다.
+// @description:fr      Ajoute un filtre pour le vendeur officiel Amazon dans les résultats de recherche. Compatible SPA, rapide et fiable.
+// @description:es      Añade un filtro para el vendedor oficial de Amazon en los resultados de búsqueda. Compatible con SPA, estable y rápido.
+// @description:de      Fügt in den Amazon-Suchergebnissen einen Filter für den offiziellen Verkäufer hinzu. Unterstützt SPA, schnelle und stabile Ausführung.
+// @description:pt-BR   Adiciona um botão para filtrar pelo vendedor oficial da Amazon nos resultados de busca. Suporte a SPA, layout estável e rápido.
+// @description:ru      Добавляет переключатель фильтра официального продавца Amazon в результатах поиска. Поддерживает SPA, исправления макета, быструю и стабильную работу.
 // @namespace    https://github.com/koyasi777/amazon-seller-filter-toggle
-// @version      14.1
-// @description  Amazon検索結果に「Amazon公式セラー（p_6:AN1VRQENFRJN5）」の絞り込みトグルを追加！SPA対応・レイアウト崩れ対策・高速安定版。
 // @author       koyasi777
 // @match        https://www.amazon.co.jp/s*
+// @match        https://www.amazon.com/s*
+// @match        https://www.amazon.co.uk/s*
+// @match        https://www.amazon.de/s*
+// @match        https://www.amazon.fr/s*
+// @match        https://www.amazon.it/s*
+// @match        https://www.amazon.es/s*
+// @match        https://www.amazon.ca/s*
+// @match        https://www.amazon.com.mx/s*
+// @match        https://www.amazon.com.br/s*
+// @match        https://www.amazon.in/s*
+// @match        https://www.amazon.com.au/s*
 // @grant        none
 // @license      MIT
-// @homepageURL  https://github.com/koyasi777/amazon-seller-filter-toggle
-// @supportURL   https://github.com/koyasi777/amazon-seller-filter-toggle/issues
+// @homepageURL  https://github.com/koyasi777/amazon-official-seller-filter
+// @supportURL   https://github.com/koyasi777/amazon-official-seller-filter/issues
 // ==/UserScript==
 
 (() => {

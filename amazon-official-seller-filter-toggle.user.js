@@ -39,7 +39,6 @@
 // @license      MIT
 // @homepageURL  https://github.com/koyasi777/amazon-official-seller-filter
 // @supportURL   https://github.com/koyasi777/amazon-official-seller-filter/issues
-// @icon         https://m.media-amazon.com/images/I/31cvqMhdG2L._SR80,60_.jpg
 // ==/UserScript==
 
 (() => {

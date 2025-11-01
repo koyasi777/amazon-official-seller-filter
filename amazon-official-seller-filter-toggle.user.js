@@ -10,7 +10,7 @@
 // @name:de      Amazon Offizieller Verkäufer-Filter 🔄
 // @name:pt-BR   Alternador de Filtro do Vendedor Oficial da Amazon 🔄
 // @name:ru      Переключатель фильтра официального продавца Amazon 🔄
-// @version      14.6
+// @version      14.7
 // @description         Amazon検索結果に「Amazon公式セラー（p_6:AN1VRQENFRJN5）」の絞り込みトグルを追加！SPA対応・レイアウト崩れ対策・高速安定版。
 // @description:en      Adds a toggle in Amazon search results to filter for the official Amazon seller (p_6:AN1VRQENFRJN5). Supports SPA, layout fixes, and fast stable performance.
 // @description:zh-CN   在Amazon搜索结果中添加“官方卖家”筛选按钮（p_6:AN1VRQENFRJN5）。支持SPA、布局修复、快速稳定运行。
@@ -51,6 +51,44 @@
     WRAPPER_ID: 'p6-switch-wrapper',
     STYLE_ID: 'p6-style',
     TEMPLATE_ID: 'p6-template'
+  };
+
+  // --- i18nユーティリティ（ラベルのみ動的化：ja / en / zh-CN / zh-TW） ---
+  const I18N = {
+    label: {
+      'ja': '公式セラー',
+      'en': 'Official Seller',
+      'zh-CN': '官方卖家',
+      'zh-TW': '官方賣家',
+    }
+  };
+
+  const detectLocale = () => {
+    const host = location.hostname;
+    if (/\.(co\.jp)$/i.test(host)) return 'ja';
+
+    const langRaw =
+      document.documentElement.lang ||
+      (navigator.languages && navigator.languages[0]) ||
+      navigator.language ||
+      '';
+    const lang = (langRaw || '').toLowerCase();
+
+    if (lang.includes('zh') || /(^|\W)zh($|\W)/.test(lang)) {
+      if (lang.includes('hant') || lang.includes('tw') || lang.includes('hk') || lang.includes('mo')) {
+        return 'zh-TW';
+      }
+      return 'zh-CN';
+    }
+
+    if (lang.startsWith('ja')) return 'ja';
+    if (lang.startsWith('en')) return 'en';
+    return 'en';
+  };
+
+  const t = (key) => {
+    const locale = detectLocale();
+    return (I18N[key] && I18N[key][locale]) || (I18N[key] && I18N[key].en) || key;
   };
 
   const log = (...args) => console.debug('[p6-toggle]', ...args);
@@ -130,11 +168,14 @@
     if (document.getElementById(CONST.TEMPLATE_ID)) return;
     const tpl = document.createElement('template');
     tpl.id = CONST.TEMPLATE_ID;
+
+    const labelText = t('label');
+
     tpl.innerHTML = `
       <div id="${CONST.WRAPPER_ID}">
-        <span class="p6-label">公式セラー:</span>
-        <label class="p6-switch">
-          <input type="checkbox">
+        <span class="p6-label" aria-label="${labelText}">${labelText}:</span>
+        <label class="p6-switch" aria-label="${labelText} filter toggle">
+          <input type="checkbox" aria-pressed="false">
           <span class="p6-slider"><span class="p6-circle"></span></span>
         </label>
       </div>

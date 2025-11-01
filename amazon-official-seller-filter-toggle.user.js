@@ -10,7 +10,7 @@
 // @name:de      Amazon Offizieller Verkäufer-Filter 🔄
 // @name:pt-BR   Alternador de Filtro do Vendedor Oficial da Amazon 🔄
 // @name:ru      Переключатель фильтра официального продавца Amazon 🔄
-// @version      14.5
+// @version      14.6
 // @description         Amazon検索結果に「Amazon公式セラー（p_6:AN1VRQENFRJN5）」の絞り込みトグルを追加！SPA対応・レイアウト崩れ対策・高速安定版。
 // @description:en      Adds a toggle in Amazon search results to filter for the official Amazon seller (p_6:AN1VRQENFRJN5). Supports SPA, layout fixes, and fast stable performance.
 // @description:zh-CN   在Amazon搜索结果中添加“官方卖家”筛选按钮（p_6:AN1VRQENFRJN5）。支持SPA、布局修复、快速稳定运行。
@@ -85,7 +85,10 @@
         font-size: 13px;
         user-select: none;
         color: white;
-        z-index: 9999;
+        position: relative;        /* 有効な z-index にする */
+        z-index: 2147483647;       /* 先頭に出す */
+        isolation: isolate;        /* 擬似要素等の干渉を遮断 */
+        pointer-events: auto;      /* 透明レイヤにイベントを奪われにくくする */
       }
       .p6-label { font-weight: bold; }
       .p6-switch {
@@ -129,11 +132,11 @@
     tpl.id = CONST.TEMPLATE_ID;
     tpl.innerHTML = `
       <div id="${CONST.WRAPPER_ID}">
+        <span class="p6-label">公式セラー:</span>
         <label class="p6-switch">
           <input type="checkbox">
           <span class="p6-slider"><span class="p6-circle"></span></span>
         </label>
-        <span class="p6-label"></span>
       </div>
     `;
     document.body.appendChild(tpl);
@@ -142,19 +145,11 @@
   const createToggleUI = (enabled) => {
     const wrapper = document.getElementById(CONST.TEMPLATE_ID).content.firstElementChild.cloneNode(true);
     const checkbox = wrapper.querySelector('input');
-    const label = wrapper.querySelector('.p6-label');
-
-    const updateLabel = (on) => {
-      label.textContent = `セラー絞り込み: ${on ? '有効中' : '無効'}`;
-      label.style.color = on ? '#90ee90' : '#eee';
-    };
 
     checkbox.checked = enabled;
-    updateLabel(enabled);
     checkbox.addEventListener('change', () => {
       const newState = checkbox.checked;
       State.set(newState);
-      updateLabel(newState);
       navigateToSearch(getKeyword(), newState);
     });
 
@@ -183,6 +178,9 @@
       form.addEventListener('submit', (e) => (e.preventDefault(), trigger()));
       submit.addEventListener('click', (e) => (e.preventDefault(), trigger()));
       input.addEventListener('keydown', (e) => e.key === 'Enter' && (e.preventDefault(), trigger()));
+
+      // --- ロード完了までポータル配置して重なり回避 ---
+      if (document.readyState !== 'complete') ensurePortal();
     } catch (e) {
       log('mount failed:', e);
     }
@@ -227,10 +225,74 @@
     observer.observe(form, { attributes: true, attributeFilter: ['class'] });
   };
 
-  requestIdleCallback(() => {
+  // ===== ポータル配置（読み込み完了までだけ有効） =====
+  let portalMode = false;
+  const ensurePortal = () => {
+    const el = document.getElementById(CONST.WRAPPER_ID);
+    if (!el) return;
+    const form = document.querySelector('#nav-search-bar-form');
+    const submit = form?.querySelector('.nav-search-submit');
+    const r = submit?.getBoundingClientRect();
+    if (!r) return;
+
+    if (!portalMode) {
+      portalMode = true;
+      document.body.appendChild(el);
+      Object.assign(el.style, {
+        position: 'fixed',
+        top: `${Math.round(r.top + r.height / 2)}px`,
+        left: `${Math.round(r.right + 8)}px`,
+        transform: 'translateY(-50%)',
+        zIndex: '2147483647'
+      });
+      window.addEventListener('resize', ensurePortal);
+      window.addEventListener('scroll', ensurePortal, { passive: true });
+    } else {
+      // 位置の追従だけ更新
+      el.style.top = `${Math.round(r.top + r.height / 2)}px`;
+      el.style.left = `${Math.round(r.right + 8)}px`;
+    }
+  };
+
+  const exitPortal = () => {
+    if (!portalMode) return;
+    portalMode = false;
+    const el = document.getElementById(CONST.WRAPPER_ID);
+    if (!el) return;
+    el.style.position = '';
+    el.style.top = '';
+    el.style.left = '';
+    el.style.transform = '';
+    // 本来の場所へ戻す
+    const form = document.querySelector('#nav-search-bar-form');
+    const target = form?.querySelector('.nav-search-submit');
+    target?.parentNode?.insertBefore(el, target.nextSibling);
+    window.removeEventListener('resize', ensurePortal);
+    window.removeEventListener('scroll', ensurePortal);
+  };
+  // ================================================
+
+  // ---- ここから初期化順序を前倒し（requestIdleCallback は廃止）----
+  const init = () => {
+    insertStyle();
+    disableNavActive();
     mount();
     observeSuggestions();
     hookSPARouting();
-    disableNavActive();
-  });
+
+    if (document.readyState === 'complete') {
+      exitPortal();
+    } else {
+      window.addEventListener('load', () => {
+        exitPortal();
+      }, { once: true });
+    }
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init, { once: true });
+  } else {
+    init();
+  }
+  // -----------------------------------------------------------------
 })();
